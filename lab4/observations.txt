@@ -1,0 +1,24 @@
+Part 1:
+    No we do not get the same result each time that we run the program.  This is because the local variables are shared between all of the threads.
+
+    The parameter arg is a per-thread variable and is stored in the stack in memory allocated for the go function.
+
+    The local variable i is a shared state variable.  It is stored within the main() function.
+
+Part 2:
+    The main thread can now be completed before each of the child threads.
+
+Part 3:
+    Global Defined Number of threads:
+        #define NTHREADS 2
+
+    Global Defined Size of Each Matrix:
+        #define N 2
+        #define M 3
+        #define L 3
+    
+    Global Defined Matrices:
+        int matrixA[N][M], matrixB[M][L], matrixC[N][L];
+
+    Local Variable i stored in Struct:
+    

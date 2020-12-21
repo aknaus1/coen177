@@ -1,0 +1,16 @@
+Step 1: List all files in current directory.
+
+Step 2: First lists the amount of arguments passed with executable.  
+    It the prints out executable and arguments by printing out a character than a space and repeat. 
+
+Step 3: List all files in current directory.
+
+Step 4: Prints the return value of the command: cat /etc/passwd | grep root
+
+Step 5: Proudcer writes to pipe 10 times, and consumer reads from pipe 10 times.
+
+Step 6: Creates a list of 10 threads with i values varying with each execution.
+    These i value are sometimes repeated for multiple threads.  
+    This happens because the threads share memory and the i value falls behind.
+
+Step 7: Used a struct to hold the value of i that I would pass into the thread.

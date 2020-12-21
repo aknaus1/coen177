@@ -1,0 +1,84 @@
+Andrew Knaus
+Lab 7
+
+Step 1: Startup and Login to Minix system
+    command 1: setup vmware
+    command 2: vmware &
+
+Step 2: Enable FTP access inside of Minix
+    command: tcpd ftp /usr/bin/in.ftpd &
+
+Step 3: Get the Minix Machines IP Address
+    command: ifconfig
+
+Step 4: Using a terminal window on the Host Machine FTP into the Minix Machine
+    command: ftp <the IP address you got from ifconfig>
+
+Step 5: Use FTP commands to cd into kernel
+    command: cd /usr/src/kernel
+
+Step 6: Use FTP commands to transfer proc.c onto host machine
+    command: get proc.c
+
+Step 7: In a new terminal window edit proc.c
+    command: vi proc.c
+
+Step 8: Edit function pick_proc to change queue selection
+    Use rand() to determin if lower priority queue should be used
+
+Step 9: Use FTP commands to transfer proc.c back onto the Minix machine
+    command: put proc.c
+
+Step 10: In Minix Machine cd into /usr/src
+    * if in kernel: cd ..
+    * if in home directory: cd /usr/src
+
+Step 11: Recompile Minix
+    command: make world
+
+Step 12: Reboot Minix
+    command: reboot
+
+Done.
+
+How are we able to observe the change in the scheduler.
+    1. The startup process is substantially slower.
+    2. The lines printed to the consol on startup are different
+
+Edited Code:
+PRIVATE struct proc * pick_proc(void)
+{
+    /* Decide who to run now.  A new process is selected and returned.
+     * When a billable process is selected, record it in 'bill_ptr', so that the 
+     * clock task can tell who to bill for system time.
+     */
+    register struct proc *rp;  /* process to run */
+    int q, randx;                     /* iterate over queues */
+
+    /* Check each of the scheduling queues for ready processes. The number of
+     * queues is defined in proc.h, and priorities are set in the task table.
+     * The lowest queue contains IDLE, which is always ready.
+     */
+    for (q=0; q < NR_SCHED_QUEUES; q++) {
+        randx = rand() % 10; //Random # 0-9
+        if(randx <= 2) //If Random # <= 2 then
+            q = (q + 5) % NR_SCHED_QUEUES; //q + 5 and wraps if it goes over q max
+
+        if(!(rp = rdy_head[q])) {
+            TRACE(VF_PICKPROC, printf("queue %d empty\n", q););
+            continue;
+        }
+
+        #if DEBUG_RACE
+        rp = random_process(rdy_head[q]);
+        #endif
+
+        TRACE(VF_PICKPROC, printf("found %s / %d on queue %d\n", 
+              rp->p_name, rp->p_endpoint, q););
+        assert(proc_is_runnable(rp));
+        if (priv(rp)->s_flags & BILLABLE)         
+            bill_ptr = rp;        /* bill for system time */
+        return rp;
+    } 
+    return NULL;
+}

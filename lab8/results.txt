@@ -1,0 +1,97 @@
+FIFO: Basic Queue Implementationn
+    Keeps track of place in queue and iterates after each insertion
+
+LRU: Least Recently Used Replacement
+    Keeps track of age of each Page
+    Searches for first empty slot, or oldest page
+
+2nd Chance: Gives pages a second chance
+    Keeps track of place in queue and iterates after each insertion
+    Keeps track of bit value assigned to each page in queue.
+    On insertion, if page is already in queue, flips the bit value.
+        Keeps current place in queue.
+    If not in queue, iterates until finds page with bit value of 0 and swaps.
+        Every page checked, has bit value flipped to 0
+
+
+Results:
+
+FIFO 10K Test with cache size = 10, 50, 100, 250, 500
+10 - FIFO
+numMisses: 9916
+numRequests: 10000
+Hit Rate = 0.008400
+
+50 - FIFO
+numMisses: 9515
+numRequests: 10000
+Hit Rate = 0.048500
+
+100 - FIFO
+numMisses: 9018
+numRequests: 10000
+Hit Rate = 0.098200
+
+250 - FIFO
+numMisses: 7534
+numRequests: 10000
+Hit Rate = 0.246600
+
+500 - FIFO
+numMisses: 5130
+numRequests: 10000
+Hit Rate = 0.487000
+
+
+LRU 10K Test with cache size = 10, 50, 100, 250, 500
+10 - LRU
+numMisses: 9915
+numRequests: 10000
+Hit Rate = 0.008500
+
+50 - LRU
+numMisses: 9510
+numRequests: 10000
+Hit Rate = 0.049000
+
+100 - LRU
+numMisses: 9029
+numRequests: 10000
+Hit Rate = 0.097100
+
+250 - LRU
+numMisses: 7532
+numRequests: 10000
+Hit Rate = 0.246800
+
+500 - LRU
+numMisses: 5206
+numRequests: 10000
+Hit Rate = 0.479400
+
+
+Second Chance 10K Test with cache size = 10, 50, 100, 250, 500
+10 - 2nd Chance
+numMisses: 9915
+numRequests: 10000
+Hit Rate = 0.008500
+
+50 - 2nd Chance
+numMisses: 9510
+numRequests: 10000
+Hit Rate = 0.049000
+
+100 - 2nd Chance
+numMisses: 9020
+numRequests: 10000
+Hit Rate = 0.098000
+
+250 - 2nd Chance
+numMisses: 7524
+numRequests: 10000
+Hit Rate = 0.247600
+
+500 - 2nd Chance
+numMisses: 5201
+numRequests: 10000
+Hit Rate = 0.479900

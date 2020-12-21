@@ -1,0 +1,7 @@
+# Name: Andrew Knaus
+# Date: 10/01/2020
+# Title: Lab1 – task # Description: Observations.
+
+When running the executable (./ExecutableName) it returns 'Segmentation fault: 11'. This is occuring because the main function is expecting to recieve an argument, and it does not have a value for when the argument is used.
+
+When including a number after the executable like ./ExecutableName 3000, the program is able to successfully run. As the number is incresed the time to execute the program increases.

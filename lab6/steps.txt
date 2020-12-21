@@ -1,0 +1,37 @@
+Step 1: Start by setting up VMware
+    In commannd line: 
+        $ setup vmware
+            This command prepares vmware to run
+        $ minix-get-image (can tab complete)
+            Please note that this will COMPLETELY ERASE any old image. Only need to do this once
+        $ vmware &
+            This may take a little while to boot up, so be patient.
+            If you don't see the “minix” option on the left, go to: • Open a Virtual Machine -> “vm images” subfolder -> “minix3” subfolder -> minix3.vmx
+Step 2: Logging In
+    The username for the minix system is “root” (with no password, at least until you set one). 
+    Type "passwd" to set your own password.
+Step 3: FTP Access
+    In the minix system type:
+        "tcpd ftp /usr/bin/in.ftpd &"
+            enables ftp Access
+        “ifconfig"
+            Displays IP address
+    On the Host Machine open a terminal and type:
+        "ftp <the IP address you got from ifconfig>"
+            this will connect you to the "minix" Machine
+        In case you are unfamiliar with FTP commands: 
+            For Remote Navigation 
+                ls - show contents of remote directory 
+                pwd - show current location in VM 
+                cd - change directory on the VM 
+            For Local Navigation 
+                lcd - show current location on host machine 
+                lcd <directory> - change location to <directory> 
+            File Transfer 
+                get <file> - copy <file> from current location in VM to current location on host. 
+                put <file> - copy <file> from current location on host to current location in VM. 
+Step 4: Modify kernel:
+    You will find the kernel files inside the "/usr/src" directory
+    To search for lines inside a file you may use grep utility
+    Once you have modified the kernel type "make world" to recompile minix
+    Then reboot the system by typing "reboot"

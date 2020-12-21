@@ -1,0 +1,1 @@
+Step 1: The thread sync program creates 10 threads and prints out a message in the critical section.  It only allows one of the threads to be in the critical section at a time.
